@@ -1,3 +1,5 @@
+import {Token} from './Token';
+
 export class LoginResponse {
     serviceRequestId: string;
     message: string;

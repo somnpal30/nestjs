@@ -1,5 +1,5 @@
 export class Token {
     access_token: string;
-    expires_in: bigint;
+    expires_in: number;
     refresh_token: string;
 }
