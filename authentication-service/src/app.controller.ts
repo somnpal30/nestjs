@@ -1,8 +1,8 @@
 import {Body, Controller, Get, Post} from '@nestjs/common';
 import {AppService} from './app.service';
-import {LoginRequest} from './request/LoginRequest';
-import {LoginResponse} from './response/LoginResponse';
-import {Token} from './response/Token';
+import {LoginRequest} from './model/request/LoginRequest';
+import {LoginResponse} from './model/response/LoginResponse';
+import {Token} from './model/response/Token';
 
 @Controller('ums/v3/user/auth')
 export class AppController {
