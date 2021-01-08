@@ -9,4 +9,5 @@ export class FederatedUserModel {
   //attributes: FederatedUserAttribute[];
   attributes: any;
   roles: string[];
+  //otpRequired: string;
 }

@@ -5,22 +5,20 @@ import { FederatedUserAttribute } from './federated.user.attribute';
 @Controller('auth-service')
 export class AuthController {
   federatedUserAttributes: FederatedUserAttribute[] = [];
-  federatedUserModelList:FederatedUserModel[] =[];
-  attributeMap :Map<string, string[]>;
-  attributeMap2 :Map<string, string[]>;
+  federatedUserModelList: FederatedUserModel[] = [];
+  attributeMap: Map<string, string[]>;
+  attributeMap2: Map<string, string[]>;
 
   constructor() {
-   this.attributeMap = new Map<string, string[]>();
+    this.attributeMap = new Map<string, string[]>();
     this.attributeMap.set('phone', ['1111111111', '2222222222']);
     this.attributeMap.set('ssn', ['111-222-3456']);
-
+    /*this.attributeMap.set('otpRequired', ['force']);*/
 
     this.attributeMap2 = new Map<string, string[]>();
     this.attributeMap2.set('phone', ['7878787878', '9494945656']);
     this.attributeMap2.set('ssn', ['999-777-5555']);
-
-
-
+    /*this.attributeMap2.set('otpRequired', ['skip']);*/
 
     // const attribute1:FederatedUserAttribute = new FederatedUserAttribute();
     // attribute1.name = "phone";
@@ -40,12 +38,12 @@ export class AuthController {
     user1.email = 'user1@gmail.com';
     user1.enabled = true;
     user1.emailVerified = true;
-    user1.password = 'password'
-    user1.roles = ['READ', 'WRITE', 'UPDATE', 'DELETE'];
+    user1.password = 'password';
+    user1.roles = ['READ', 'WRITE', 'UPDATE', 'DELETE', 'OTP_REQUIRED'];
+    //user1.otpRequired = 'force';
 
     //user1.attributes = this.federatedUserAttributes;
     user1.attributes = this.converMapToJson(this.attributeMap);
-
 
     const user2: FederatedUserModel = new FederatedUserModel();
     user2.username = 'myuser2';
@@ -54,9 +52,9 @@ export class AuthController {
     user2.email = 'user2@gmail.com';
     user2.enabled = true;
     user2.emailVerified = true;
-    user2.password = 'password'
+    user2.password = 'password';
     user2.roles = ['READ'];
-
+    //user2.otpRequired = 'skip';
     //user2.attributes = this.federatedUserAttributes;
     user2.attributes = this.converMapToJson(this.attributeMap2);
 
@@ -68,36 +66,33 @@ export class AuthController {
   auth(@Param('user') user, @Body('credential') password: string): boolean {
     //var status: boolean = false;
     if (user === 'admin' && password === 'admin') {
-      return  true;
+      return true;
     }
     return false;
   }
 
   @Get('/auth/v1/user/:username')
   user(@Param('username') user): FederatedUserModel {
-    console.log(">>> "+user);
-    const fedUsers:FederatedUserModel[] = this.federatedUserModelList.filter(e => e.username === user);
+    console.log('>>> ' + user);
+    const fedUsers: FederatedUserModel[] = this.federatedUserModelList.filter(
+      e => e.username === user,
+    );
 
-
-    if(fedUsers && fedUsers.length == 1){
+    if (fedUsers && fedUsers.length == 1) {
       //console.log(fedUsers[0].attributes)
       return fedUsers[0];
-    }else{
-      throw Error("User doesn't exist !")
+    } else {
+      throw Error("User doesn't exist !");
     }
   }
 
-  converMapToJson(map:Map<string,string[]>):any{
+  converMapToJson(map: Map<string, string[]>): any {
     const jsonObject = {};
     map.forEach((value, key) => {
-      jsonObject[key] = value
+      jsonObject[key] = value;
     });
-    console.log(JSON.stringify(jsonObject))
+    console.log(JSON.stringify(jsonObject));
 
     return jsonObject;
   }
-
-
-
-
 }

@@ -15,27 +15,27 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Get("/components")
-  getComponent(@Res() res: Response):any{
-    console.log("getting component .........." + Date.now())
+  @Get('/components')
+  getComponent(@Res() res: Response): any {
+    console.log('getting component ..........' + Date.now());
     res.status(HttpStatus.OK).json(BODY_Response);
   }
 
-  @Get("/header")
-  getHeader(@Res() res: Response):any{
-    console.log("getting header .........." + Date.now())
+  @Get('/header')
+  getHeader(@Res() res: Response): any {
+    console.log('getting header ..........' + Date.now());
     res.status(HttpStatus.OK).json(HEADER_Response);
   }
 
-  @Get("/view-json")
-  viewComponent(@Res() res: Response):any{
-    console.log("getting component .........." + Date.now())
+  @Get('/view-json')
+  viewComponent(@Res() res: Response): any {
+    console.log('getting component ..........' + Date.now());
     res.status(HttpStatus.OK).json(VIEW_Response);
   }
 
-  @Get("/sfm-response")
-  sftRespoonse(@Res() res: Response):any{
-    console.log("getting component .........." + Date.now())
+  @Get('/sfm-response')
+  sftRespoonse(@Res() res: Response): any {
+    console.log('getting component ..........' + Date.now());
     res.status(HttpStatus.OK).json(SFM_Response);
   }
 }
